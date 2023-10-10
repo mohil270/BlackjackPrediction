@@ -1,0 +1,42 @@
+---
+title: "DataVis"
+output: html_document
+date: "2023-10-10"
+---
+
+# Packages
+```{r}
+library(readxl)
+library(ggplot2)
+library(dplyr)
+```
+
+
+#Read in Data
+```{r}
+data <- readxl::read_xlsx("./DataComp1.xlsx", sheet = "Final")
+#par(bg = "Red")
+```
+
+# Visualizations
+```{r}
+data1 <- data%>%
+  mutate(Result, Result2 = ifelse(Result == 1, "Player Win", "Dealer Win"))
+
+barplot(table(data1$Result2), ylab = "Total number of Wins", main = "Histogram of Outcomes", col = "Orange")
+
+```
+
+```{r}
+barplot(table(data$`Dealer's Card 1`), main = "Distribution of Dealer's First Card", col = "Navy", xlab = "Card Number", ylab = "Frequency")
+barplot(table(data$`Dealer's Card 2`), main = "Distribution of Dealer's Second Card", col = "Navy", xlab = "Card Number", ylab = "Frequency")
+```
+```{r}
+barplot(table(data$`Player's Card 1`), main = "Distribution of Player's First Card", col = "Green", xlab = "Card Number", ylab = "Frequency")
+barplot(table(data$`Player's Card 2`), main = "Distribution of Player's Second Card", col = "Green", xlab = "Card Number", ylab = "Frequency")
+```
+```{r}
+barplot(table(data$`Player's Action 1`), main = "Distribution of Player's Action", col = "Purple", xlab = "Action Type", ylab = "Frequency")
+barplot(table(data$`Dealer's Action 1`), main = "Distribution of Dealer's Action", col = "Purple", xlab = "Action Type", ylab = "Frequency")
+```
+
