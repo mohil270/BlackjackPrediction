@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blackjack Predictor</title>
+</head>
+<body>
+    <h2>Blackjack Action Predictor</h2>
+    Player's Card 1: <input type="text" id="player_card_1"><br>
+    Player's Card 2: <input type="text" id="player_card_2"><br>
+    Dealer's Card 1: <input type="text" id="dealer_card_1"><br>
+    Dealer's Card 2: <input type="text" id="dealer_card_2"><br>
+    <button onclick="predictAction()">Predict Action</button>
+    <p>Recommended Action: <span id="action"></span></p>
+
+    <script>
+        function predictAction() {
+            var player_card_1 = document.getElementById('player_card_1').value;
+            var player_card_2 = document.getElementById('player_card_2').value;
+            var dealer_card_1 = document.getElementById('dealer_card_1').value;
+            var dealer_card_2 = document.getElementById('dealer_card_2').value;
+            
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    player_card_1: player_card_1,
+                    player_card_2: player_card_2,
+                    dealer_card_1: dealer_card_1,
+                    dealer_card_2: dealer_card_2
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('action').innerText = data.action;
+            });
+        }
+    </script>
+</body>
+</html>

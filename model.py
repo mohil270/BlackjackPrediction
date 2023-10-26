@@ -98,6 +98,9 @@ settings = {
 
 automl.fit(X_train, y_train, **settings)
 
+xgb_model = automl.model.estimator
+xgb_model.get_booster().save_model('flaml_xgboost_model.model')
+
 print('Best ML leaner:', automl.best_estimator)
 print('Best hyperparmeter config:', automl.best_config)
 print(f'Best accuracy on validation data: {1-automl.best_loss:.4g}')
@@ -108,3 +111,4 @@ print('True labels:', y_test)
 
 from sklearn.metrics import accuracy_score
 print('Accuracy:', accuracy_score(y_test, y_pred))
+
